@@ -1,0 +1,16 @@
+services:
+    db:
+        image: postgres:latest
+        container_name: weroad_db
+        environment:
+            POSTGRES_DB: weroad_db
+            POSTGRES_USER: weroad
+            POSTGRES_PASSWORD: weroad
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+volumes:
+    postgres_data:
+        driver: local
