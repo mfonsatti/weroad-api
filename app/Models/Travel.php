@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @method static create(array $array)
  * @method static findOrFail(int $id)
- * @method static withCount(\Closure[] $array)
+ * @method static whereHas(string $string, \Closure $param, string $string1, int $int)
+ * @method static whereIn(string $string, \Closure $param)
  */
 class Travel extends Model
 {

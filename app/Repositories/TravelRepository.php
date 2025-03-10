@@ -10,9 +10,13 @@ class TravelRepository implements TravelRepositoryInterface
 {
     public function findAvailableTravels()
     {
-        return Travel::whereHas('bookings', function ($query) {
-            $query->where('status', Booking::STATUS_CONFIRMED);
-        }, '<', 5)->get();
+        return Travel::whereIn('id', function ($query) {
+            $query->select('travel_id')
+                ->from('bookings')
+                ->where('status', Booking::STATUS_CONFIRMED)
+                ->groupBy('travel_id')
+                ->havingRaw('SUM(seats) < 5');
+        })->get();
     }
 
     public function findById(int $id)
