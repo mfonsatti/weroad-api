@@ -22,13 +22,13 @@ class TravelSeeder extends Seeder
                 'startingDate' => '2021-11-01',
                 'endingDate' => '2021-11-09',
                 'price' => 199900,
-                'moods' => json_encode([
+                'moods' => [
                     'nature' => 80,
                     'relax' => 20,
                     'history' => 90,
                     'culture' => 30,
                     'party' => 10,
-                ])
+                ]
             ],
             [
                 'id' => '4f4bd032-e7d4-402a-bdf6-aaf6be240d53',
@@ -38,13 +38,13 @@ class TravelSeeder extends Seeder
                 'startingDate' => '2021-11-01',
                 'endingDate' => '2021-11-08',
                 'price' => 199900,
-                'moods' => json_encode([
+                'moods' => [
                     'nature' => 100,
                     'relax' => 30,
                     'history' => 10,
                     'culture' => 20,
                     'party' => 10,
-                ])
+                ]
             ],
             [
                 'id' => 'cbf304ae-a335-43fa-9e56-811612dcb601',
@@ -54,13 +54,13 @@ class TravelSeeder extends Seeder
                 'startingDate' => '2022-01-03',
                 'endingDate' => '2022-01-10',
                 'price' => 149900,
-                'moods' => json_encode([
+                'moods' => [
                     'nature' => 30,
                     'relax' => 40,
                     'history' => 20,
                     'culture' => 80,
                     'party' => 70,
-                ])
+                ]
             ]
         ];
 

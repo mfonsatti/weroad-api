@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $array)
+ * @method static findOrFail(int $id)
+ * @method static withCount(\Closure[] $array)
  */
 class Travel extends Model
 {
@@ -26,6 +29,14 @@ class Travel extends Model
     ];
 
     /**
+     * @return HasMany
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    /**
      * @return Attribute
      */
     protected function price(): Attribute
@@ -36,9 +47,6 @@ class Travel extends Model
         );
     }
 
-    /**
-     * @return string[]
-     */
     protected function casts(): array
     {
         return [
