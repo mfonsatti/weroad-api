@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\DTO\BookingDto;
+use App\Http\Requests\BookingRequest;
 use App\Models\Travel;
 
 interface BookingRepositoryInterface
@@ -10,6 +10,6 @@ interface BookingRepositoryInterface
     public function findByEmail(string $email);
     public function findByTravel(Travel $travel_id);
     public function findById(int $id);
-    public function reserve(BookingDto $bookingDto);
+    public function reserve(BookingRequest $bookingRequest);
     public function confirm();
 }

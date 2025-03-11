@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookingRequest;
 use App\Repositories\Interfaces\BookingRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -17,16 +18,10 @@ class BookingController extends Controller
         $this->bookingRepository = $bookingRepository;
     }
 
-    public function reserve(Request $request): JsonResponse
+    public function reserve(BookingRequest $request): JsonResponse
     {
         try {
-            $data = $request->validate([
-                'travel_id' => 'required|exists:travels,id',
-                'user_email' => 'required|email',
-                'seats' => 'required|integer|min:1',
-            ]);
-
-            $booking = $this->bookingRepository->reserve($data);
+            $booking = $this->bookingRepository->reserve($request);
 
             return response()->json([
                 'message' => 'Booking reserved successfully',

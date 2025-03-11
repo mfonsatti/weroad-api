@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\DTO\BookingDto;
+use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
 use App\Models\Travel;
 use App\Repositories\Interfaces\BookingRepositoryInterface;
@@ -24,12 +24,12 @@ class BookingRepository implements BookingRepositoryInterface
         // TODO: Implement findById() method.
     }
 
-    public function reserve(BookingDto $bookingDto)
+    public function reserve(BookingRequest $bookingRequest)
     {
         return Booking::create([
-            'travel_id' => $bookingDto['travel_id'],
-            'user_email' => $bookingDto['user_email'],
-            'seats' => $bookingDto['seats'],
+            'travel_id' => $bookingRequest['travel_id'],
+            'user_email' => $bookingRequest['user_email'],
+            'seats' => $bookingRequest['seats'],
             'status' => Booking::STATUS_PENDING,
             'expires_at' => now()->addMinutes(15),
         ]);
