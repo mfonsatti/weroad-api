@@ -19,7 +19,7 @@ class Booking extends Model
     /**
      * @var string[]
      */
-    protected $fillable = ['user_email', 'seats', 'travel_id', 'status', 'expires_at', 'amount'];
+    protected $fillable = ['user_email', 'seats', 'travel_id', 'status', 'expires_at', 'amount', 'session_token'];
 
     /**
      * @var string[]
