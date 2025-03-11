@@ -29,12 +29,15 @@ class BookingRepository implements BookingRepositoryInterface
 
     public function reserve(BookingRequest $bookingRequest)
     {
+        $travel = Travel::findOrFail($bookingRequest->input('travel_id'));
+
         return Booking::create([
-            'travel_id' => $bookingRequest['travel_id'],
+            'travel_id'  => $bookingRequest['travel_id'],
             'user_email' => $bookingRequest['user_email'],
-            'seats' => $bookingRequest['seats'],
-            'status' => Booking::STATUS_PENDING,
+            'seats'      => $bookingRequest['seats'],
+            'status'     => Booking::STATUS_PENDING,
             'expires_at' => now()->addMinutes(15),
+            'amount'     => $travel->price * $bookingRequest->input('seats')
         ]);
     }
 

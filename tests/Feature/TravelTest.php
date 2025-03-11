@@ -16,13 +16,13 @@ class TravelTest extends TestCase
         parent::setUp();
 
         $this->travel = Travel::create([
-            'price' => 199900,
-            'slug' => 'test-travel',
-            'name' => 'Test Travel',
-            'description' => 'A test travel description',
+            'price'        => 199900,
+            'slug'         => 'test-travel',
+            'name'         => 'Test Travel',
+            'description'  => 'A test travel description',
             'startingDate' => '2025-01-01',
-            'endingDate' => '2025-01-10',
-            'moods' => ['nature' => 80, 'relax' => 20],
+            'endingDate'   => '2025-01-10',
+            'moods'        => ['nature' => 80, 'relax' => 20],
         ]);
     }
 

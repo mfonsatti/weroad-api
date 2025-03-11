@@ -27,7 +27,7 @@ class BookingConfirmRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'booking_id'  => 'required|uuid|exists:bookings,id',
+            'booking_id' => 'required|uuid|exists:bookings,id',
         ];
     }
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('travel_id');
             $table->string('user_email');
             $table->integer('seats');
+            $table->decimal('amount');
             $table->enum('status', ['pending', 'confirmed'])->default('pending');
             $table->timestamp('expires_at');
             $table->timestamps();
