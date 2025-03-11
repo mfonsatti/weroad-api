@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\ExpiredBookingException;
+use App\Exceptions\FullyBookedException;
+use App\Http\Requests\BookingConfirmRequest;
 use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
 use App\Models\Travel;
@@ -85,5 +88,42 @@ class BookingRepositoryTest extends TestCase
         $this->expectException(ValidationException::class);
 
         Validator::make($data, $rules)->validate();
+    }
+
+    /**
+     * @throws FullyBookedException
+     * @throws ExpiredBookingException
+     */
+    #[Test]
+    public function it_fails_if_travel_is_fully_booked()
+    {
+        $bookingRequest1 = new BookingRequest([
+            'travel_id' => $this->travel->id,
+            'user_email' => 'test1@example.com',
+            'seats' => 1,
+        ]);
+
+        // Slow user reservation
+        $booking1 = $this->bookingRepository->reserve($bookingRequest1);
+
+        $bookingRequest2 = new BookingRequest([
+            'travel_id' => $this->travel->id,
+            'user_email' => 'test2@example.com',
+            'seats' => 5,
+        ]);
+
+        // Fast user causing Fully Booked
+        $booking2 = $this->bookingRepository->reserve($bookingRequest2);
+        $bookingConfirmRequest2 = new BookingConfirmRequest([
+            'booking_id' => $booking2->id
+        ]);
+        $this->bookingRepository->confirm($bookingConfirmRequest2);
+
+        // Slow user confirmation attempt, but already Fully Booked
+        $this->expectException(FullyBookedException::class);
+        $bookingConfirmRequest1 = new BookingConfirmRequest([
+            'booking_id' => $booking1->id
+        ]);
+        $this->bookingRepository->confirm($bookingConfirmRequest1);
     }
 }
