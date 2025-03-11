@@ -28,4 +28,20 @@ class Booking extends Model
         'expires_at' => 'datetime',
     ];
 
+    /**
+     * This set the booking amount equal to price*seats on creation
+     * @return void
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($booking) {
+            $travel = Travel::findOrFail($booking->travel_id);
+            if ($travel) {
+                $booking->amount = $travel->price * $booking->seats;
+            }
+        });
+    }
+
 }

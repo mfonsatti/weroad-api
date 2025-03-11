@@ -45,7 +45,6 @@ class TravelRepositoryTest extends TestCase
             'seats'      => 4,
             'status'     => Booking::STATUS_CONFIRMED,
             'expires_at' => now()->addMinutes(15),
-            'amount'     => $this->travel1->price * 4,
         ]);
 
         $this->booking2 = Booking::create([
@@ -54,7 +53,6 @@ class TravelRepositoryTest extends TestCase
             'seats'      => 1,
             'status'     => Booking::STATUS_PENDING,
             'expires_at' => now()->addMinutes(15),
-            'amount'     => $this->travel1->price * 1,
         ]);
 
         $this->booking3 = Booking::create([
@@ -63,7 +61,6 @@ class TravelRepositoryTest extends TestCase
             'seats'      => 1,
             'status'     => Booking::STATUS_CONFIRMED,
             'expires_at' => now()->addMinutes(15),
-            'amount'     => $this->travel2->price * 3,
         ]);
 
         $this->booking4 = Booking::create([
@@ -72,7 +69,6 @@ class TravelRepositoryTest extends TestCase
             'seats'      => 4,
             'status'     => Booking::STATUS_PENDING,
             'expires_at' => now()->subMinutes(15),
-            'amount'     => $this->travel2->price * 4,
         ]);
 
         $this->travelRepository = new TravelRepository();

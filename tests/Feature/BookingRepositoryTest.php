@@ -11,9 +11,7 @@ use App\Models\Travel;
 use App\Repositories\BookingRepository;
 use Faker\Provider\Uuid;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use PHPUnit\Framework\Attributes\Test;
@@ -56,7 +54,6 @@ class BookingRepositoryTest extends TestCase
             'user_email' => 'test@example.com',
             'seats'      => 2,
             'status'     => Booking::STATUS_PENDING,
-            'amount'     => $this->travel->price * 2
         ]);
 
         $expectedExpiration = now()->addMinutes(15)->format('Y-m-d H:i:s');

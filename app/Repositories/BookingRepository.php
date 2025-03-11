@@ -37,7 +37,6 @@ class BookingRepository implements BookingRepositoryInterface
             'seats'      => $bookingRequest['seats'],
             'status'     => Booking::STATUS_PENDING,
             'expires_at' => now()->addMinutes(15),
-            'amount'     => $travel->price * $bookingRequest->input('seats')
         ]);
     }
 
