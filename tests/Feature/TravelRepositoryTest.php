@@ -5,13 +5,13 @@ namespace Tests\Feature;
 use App\Models\Booking;
 use App\Models\Travel;
 use App\Repositories\TravelRepository;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TravelRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected TravelRepository $travelRepository;
 
