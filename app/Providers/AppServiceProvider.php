@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\BookingRepository;
+use App\Repositories\Interfaces\BookingRepositoryInterface;
 use App\Repositories\Interfaces\TravelRepositoryInterface;
 use App\Repositories\TravelRepository;
 use Illuminate\Support\Facades\Route;
@@ -15,13 +17,6 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(TravelRepositoryInterface::class, TravelRepository::class);
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        Route::prefix('api')->group(base_path('routes/api.php'));
+        $this->app->bind(BookingRepositoryInterface::class, BookingRepository::class);
     }
 }
