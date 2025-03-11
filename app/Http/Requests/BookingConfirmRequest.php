@@ -7,8 +7,10 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class BookingRequest extends FormRequest
+class BookingConfirmRequest extends FormRequest
 {
+    public string $booking_id;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,9 +27,7 @@ class BookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'travel_id'  => 'required|uuid|exists:travels,id',
-            'user_email' => 'required|email',
-            'seats'      => 'required|integer|min:1|max:5',
+            'booking_id'  => 'required|uuid|exists:bookings,id',
         ];
     }
 

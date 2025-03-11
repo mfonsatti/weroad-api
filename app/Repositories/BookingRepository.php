@@ -2,10 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\ExpiredBookingException;
+use App\Http\Requests\BookingConfirmRequest;
 use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
 use App\Models\Travel;
 use App\Repositories\Interfaces\BookingRepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BookingRepository implements BookingRepositoryInterface
 {
@@ -35,8 +38,23 @@ class BookingRepository implements BookingRepositoryInterface
         ]);
     }
 
-    public function confirm()
+    /**
+     * @throws ExpiredBookingException
+     */
+    public function confirm(BookingConfirmRequest $bookingConfirmRequest)
     {
-        // TODO: Implement confirm() method.
+        $booking = Booking::where('id', $bookingConfirmRequest->input('booking_id'))
+            ->where('status', Booking::STATUS_PENDING)
+            ->first();
+
+        if ($booking->expires_at <= now()) {
+            throw new ExpiredBookingException("Booking has expired and cannot be confirmed.");
+        }
+
+        //TODO: check concurrency seats availability for this travel
+
+        $booking->update(['status' => Booking::STATUS_CONFIRMED]);
+
+        return $booking;
     }
 }
