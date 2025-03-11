@@ -24,9 +24,9 @@ class BookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'travel_id'  => 'required|exists:travels,id',
+            'travel_id'  => 'required|uuid|exists:travels,id',
             'user_email' => 'required|email',
-            'seats'      => 'required|integer|min:1',
+            'seats'      => 'required|integer|min:1|max:5',
         ];
     }
 

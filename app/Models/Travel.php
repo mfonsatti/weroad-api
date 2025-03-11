@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static findOrFail(int $id)
  * @method static whereHas(string $string, \Closure $param, string $string1, int $int)
  * @method static whereIn(string $string, \Closure $param)
+ * @method static factory()
  */
 class Travel extends Model
 {
