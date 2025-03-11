@@ -13,7 +13,11 @@ class TravelRepository implements TravelRepositoryInterface
         return Travel::whereIn('id', function ($query) {
             $query->select('travel_id')
                 ->from('bookings')
-                ->where('status', Booking::STATUS_CONFIRMED)
+                ->whereIn('status', [Booking::STATUS_CONFIRMED, Booking::STATUS_PENDING])
+                ->where(function ($query) {
+                    $query->where('status', Booking::STATUS_CONFIRMED)
+                        ->orWhere('expires_at', '>', now());
+                })
                 ->groupBy('travel_id')
                 ->havingRaw('SUM(seats) < 5');
         })->get();

@@ -51,7 +51,7 @@ class TravelRepositoryTest extends TestCase
             'travel_id' => $this->travel1->id,
             'user_email' => 'user@example.com',
             'seats' => 1,
-            'status' => Booking::STATUS_CONFIRMED,
+            'status' => Booking::STATUS_PENDING,
             'expires_at' => now()->addMinutes(15),
         ]);
 
@@ -61,6 +61,14 @@ class TravelRepositoryTest extends TestCase
             'seats' => 1,
             'status' => Booking::STATUS_CONFIRMED,
             'expires_at' => now()->addMinutes(15),
+        ]);
+
+        $this->booking4= Booking::create([
+            'travel_id' => $this->travel2->id,
+            'user_email' => 'user@example.com',
+            'seats' => 4,
+            'status' => Booking::STATUS_PENDING,
+            'expires_at' => now()->subMinutes(15),
         ]);
 
         $this->travelRepository = new TravelRepository();
