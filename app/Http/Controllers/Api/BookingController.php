@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingRequest;
 use App\Repositories\Interfaces\BookingRepositoryInterface;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BookingController extends Controller
@@ -20,20 +18,12 @@ class BookingController extends Controller
 
     public function reserve(BookingRequest $request): JsonResponse
     {
-        try {
-            $booking = $this->bookingRepository->reserve($request);
+        $booking = $this->bookingRepository->reserve($request);
 
-            return response()->json([
-                'message' => 'Booking reserved successfully',
-                'data' => $booking,
-            ], 201);
-
-        } catch (ValidationException $e) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $e->errors(),
-            ], 422);
-        }
+        return response()->json([
+            'message' => 'Booking reserved successfully',
+            'data' => $booking,
+        ], 201);
     }
 
     public function confirm(): JsonResponse
