@@ -19,52 +19,36 @@ class TravelRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->travel1 = Travel::create([
-            'price'        => 199900,
-            'slug'         => 'test-travel',
-            'name'         => 'Test Travel',
-            'description'  => 'A test travel description',
-            'startingDate' => '2025-01-01',
-            'endingDate'   => '2025-01-10',
-            'moods'        => ['nature' => 80, 'relax' => 20],
-        ]);
-
-        $this->travel2 = Travel::create([
-            'price'        => 199900,
-            'slug'         => 'test-travel-2',
-            'name'         => 'Test Travel',
-            'description'  => 'A test travel description',
-            'startingDate' => '2025-01-01',
-            'endingDate'   => '2025-01-10',
-            'moods'        => ['nature' => 80, 'relax' => 20],
-        ]);
-
-        $this->booking1 = Booking::create([
-            'travel_id'  => $this->travel1->id,
+        // 4 Seats confirmed Travel_1
+        Booking::create([
+            'travel_id'  => '4f4bd032-e7d4-402a-bdf6-aaf6be240d53',
             'user_email' => 'user@example.com',
             'seats'      => 4,
             'status'     => Booking::STATUS_CONFIRMED,
             'expires_at' => now()->addMinutes(15),
         ]);
 
-        $this->booking2 = Booking::create([
-            'travel_id'  => $this->travel1->id,
+        // 1 Seats pending Travel_1
+        Booking::create([
+            'travel_id'  => '4f4bd032-e7d4-402a-bdf6-aaf6be240d53',
             'user_email' => 'user@example.com',
             'seats'      => 1,
             'status'     => Booking::STATUS_PENDING,
             'expires_at' => now()->addMinutes(15),
         ]);
 
-        $this->booking3 = Booking::create([
-            'travel_id'  => $this->travel2->id,
+        // 1 Seats confirmed Travel_2
+        Booking::create([
+            'travel_id'  => 'cbf304ae-a335-43fa-9e56-811612dcb601',
             'user_email' => 'user@example.com',
             'seats'      => 1,
             'status'     => Booking::STATUS_CONFIRMED,
             'expires_at' => now()->addMinutes(15),
         ]);
 
-        $this->booking4 = Booking::create([
-            'travel_id'  => $this->travel2->id,
+        // EXPIRED 4 Seats pending Travel_2
+        Booking::create([
+            'travel_id'  => 'cbf304ae-a335-43fa-9e56-811612dcb601',
             'user_email' => 'user@example.com',
             'seats'      => 4,
             'status'     => Booking::STATUS_PENDING,
@@ -78,6 +62,6 @@ class TravelRepositoryTest extends TestCase
     public function it_finds_only_travels_with_less_than_five_confirmed_bookings()
     {
         $travels = $this->travelRepository->findAvailableTravels();
-        $this->assertCount(1, $travels);
+        $this->assertCount(2, $travels);
     }
 }
