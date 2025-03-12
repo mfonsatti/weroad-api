@@ -26,6 +26,7 @@ class Booking extends Model
      */
     protected $casts = [
         'expires_at' => 'datetime',
+        'amount' => 'decimal:2',
     ];
 
     /**
