@@ -9,10 +9,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
 Route::get('/travels', [TravelController::class, 'getAvailableTravels']);
 
 Route::prefix('bookings')->group(function () {
+    Route::post('/', [BookingController::class, 'index']);
     Route::post('/reserve', [BookingController::class, 'reserve']);
     Route::post('/confirm', [BookingController::class, 'confirm']);
 });

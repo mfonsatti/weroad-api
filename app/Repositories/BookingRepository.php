@@ -14,17 +14,7 @@ class BookingRepository implements BookingRepositoryInterface
 {
     public function findByEmail(string $email)
     {
-        // TODO: Implement findByEmail() method.
-    }
-
-    public function findByTravel(Travel $travel_id)
-    {
-        // TODO: Implement findByTravel() method.
-    }
-
-    public function findById(int $id)
-    {
-        // TODO: Implement findById() method.
+        return Booking::where('user_email', $email)->with('travel')->get();
     }
 
     public function reserve(BookingRequest $bookingRequest)

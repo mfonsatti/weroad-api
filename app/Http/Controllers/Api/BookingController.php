@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Exceptions\ExpiredBookingException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingConfirmRequest;
+use App\Http\Requests\BookingListRequest;
 use App\Http\Requests\BookingRequest;
 use App\Repositories\Interfaces\BookingRepositoryInterface;
-use Exception;
-use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BookingController extends Controller
@@ -18,6 +16,13 @@ class BookingController extends Controller
     public function __construct(BookingRepositoryInterface $bookingRepository)
     {
         $this->bookingRepository = $bookingRepository;
+    }
+
+    public function index(BookingListRequest $bookingListRequest): JsonResponse
+    {
+        $bookings = $this->bookingRepository->findByEmail($bookingListRequest->input("user_email"));
+
+        return response()->json($bookings);
     }
 
     public function reserve(BookingRequest $bookingRequest): JsonResponse

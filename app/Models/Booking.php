@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static create(array $array)
@@ -45,4 +46,11 @@ class Booking extends Model
         });
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function travel(): BelongsTo
+    {
+        return $this->belongsTo(Travel::class, 'travel_id');
+    }
 }
