@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\AlreadyConfirmedBookingException;
 use App\Exceptions\ExpiredBookingException;
 use App\Exceptions\FullyBookedException;
 use App\Http\Requests\BookingConfirmRequest;
@@ -19,7 +20,7 @@ class BookingRepository implements BookingRepositoryInterface
 
     public function reserve(BookingRequest $bookingRequest)
     {
-        $travel = Travel::findOrFail($bookingRequest->input('travel_id'));
+        Travel::findOrFail($bookingRequest->input('travel_id'));
 
         return Booking::create([
             'travel_id'  => $bookingRequest['travel_id'],
@@ -33,12 +34,14 @@ class BookingRepository implements BookingRepositoryInterface
     /**
      * @throws ExpiredBookingException
      * @throws FullyBookedException
+     * @throws AlreadyConfirmedBookingException
      */
     public function confirm(BookingConfirmRequest $bookingConfirmRequest)
     {
-        $booking = Booking::where('id', $bookingConfirmRequest->input('booking_id'))
-            ->where('status', Booking::STATUS_PENDING)
-            ->first();
+        $booking = Booking::where('id', $bookingConfirmRequest->input('booking_id'))->first();
+        if($booking->status === Booking::STATUS_CONFIRMED){
+            throw new AlreadyConfirmedBookingException("Booking already confirmed.");
+        }
 
         if ($booking->expires_at <= now()) {
             throw new ExpiredBookingException("Booking has expired and cannot be confirmed.");

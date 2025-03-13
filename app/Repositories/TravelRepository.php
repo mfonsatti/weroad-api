@@ -4,10 +4,11 @@ namespace App\Repositories;
 
 use App\Models\Travel;
 use App\Repositories\Interfaces\TravelRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class TravelRepository implements TravelRepositoryInterface
 {
-    public function findAvailableTravels()
+    public function findAvailableTravels(): Collection
     {
         return Travel::leftJoin('bookings', function ($join) {
             $join->on('travels.id', '=', 'bookings.travel_id')
