@@ -30,7 +30,6 @@ The application should be accessible at [localhost:8000](http://localhost:8000).
 The project follows the **Repository Pattern**, which provides:
 - Better separation of concerns.
 - Easier maintainability and scalability.
-- Simplified testing by abstracting database queries.
 
 ### Database Seeder
 A **database seeder** is implemented to populate the `travels` table with sample data.
