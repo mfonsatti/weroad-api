@@ -12,7 +12,6 @@ use App\Models\Travel;
 use App\Repositories\BookingRepository;
 use Faker\Provider\Uuid;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
