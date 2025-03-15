@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\AlreadyConfirmedBookingException;
 use App\Exceptions\ExpiredBookingException;
 use App\Exceptions\FullyBookedException;
 use App\Http\Requests\BookingConfirmRequest;
@@ -27,15 +28,7 @@ class BookingRepositoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->travel = Travel::create([
-            'price'        => 199900,
-            'slug'         => 'test-travel',
-            'name'         => 'Test Travel',
-            'description'  => 'A test travel description',
-            'startingDate' => '2025-01-01',
-            'endingDate'   => '2025-01-10',
-            'moods'        => ['nature' => 80, 'relax' => 20],
-        ]);
+        $this->travel = Travel::factory()->create();
         $this->bookingRepository = new BookingRepository();
     }
 
@@ -93,6 +86,7 @@ class BookingRepositoryTest extends TestCase
     /**
      * @throws FullyBookedException
      * @throws ExpiredBookingException
+     * @throws AlreadyConfirmedBookingException
      */
     #[Test]
     public function it_fails_if_travel_is_fully_booked()
