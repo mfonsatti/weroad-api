@@ -12,6 +12,7 @@ use App\Repositories\BookingRepository;
 use Faker\Provider\Uuid;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use PHPUnit\Framework\Attributes\Test;
@@ -19,7 +20,7 @@ use Tests\TestCase;
 
 class BookingRepositoryTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected BookingRepository $bookingRepository;
 
